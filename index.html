@@ -44,13 +44,15 @@
       </section>
 
       <section data-background-color="black">
-        <p>Johannes Müller<br>Manas.Tech</p>
+        <p>Johannes Müller</p>
 
+        <p><a href="https://github.com/straight-shoota/">@straight-shoota</a></p>
+        <p><a href="https://fosstodon.org/@straightshoota">@straightshoota@fosstodon.org</a></p>
         <p><a href="mailto:jmuller@manas.tech">jmuller@manas.tech</a></p>
-        <p>github: <a href="https://github.com/straight-shoota">@straight-shoota</a></p>
-        <p>mastodon: <a href="https://fosstodon.org/@straightshoota">@straightshoota@fosstodon.org</a></p>
 
         <hr>
+        <p><a href="https://straight-shoota.github.io/humans-computers">straight-shoota.github.io/humans-computers</a>
+        </p>
         <p>
           <a href="https://crystal-lang.org/install">crystal-lang.org/install</a> | <a
             href="https://play.crystal-lang.org">play.crystal-lang.org</a>
@@ -58,33 +60,39 @@
 
         <aside class="notes">
           <ul>
-            <li>compiler tech classes at university: good to be aware of some background, but there are already plenty languages out there and smart people building them</li>
+            <li>I am Johannes Müller / straight-shoota.</li>
+            <li>When I learned about compiler tech at university: nice to be aware of what goes on in the background,
+              but I won't need that. There are already plenty languages out there and smart people building them</li>
+            <li>And here I am, presenting a programming language</li>
             <li>When I learned Ruby, it was the first time I fell in love with a programming language (fun)</li>
-            <li>Later Crystal was the second time</li>
-            <li>it expanded on Ruby, adding some extra flavour that I find very attractive</li>
-            <li>Crystal was still young, so lots of basics were missing and I started contributing (stdlib and compiler)
-            </li>
+            <li>Later discovered Crystal was the second time</li>
+            <li>it expands on Ruby, adding some extra flavour that I find very attractive</li>
+            <li>Crystal was still young, so lots of basics missing and I started contributing</li>
             <li>Eventually became a Core Team member</li>
-            <li>now working on Crystal full time. I'm team lead of the Crystal team at Manas, the place were
+            <li>now working on Crystal full time at Manas, the place were
               Crystal was born and continues stewardship of the project.</li>
+            <li>I ended up as head of the project</li>
           </ul>
         </aside>
       </section>
 
       <section>
-        <h2>Manas.Tech</h2>
-        <a href="https://manas.tech/"><img src="assets/manas.svg" alt="Manas" style="width: 33%; aspect-ratio: 1;"></a>
+        <h2>Origin story</h2>
+        <p>Manas.Tech<< /p>
+            <a href="https://manas.tech/"><img src="assets/manas.svg" alt="Manas"
+                style="width: 33%; aspect-ratio: 1;"></a>
 
-        <aside class="notes">
-          <ul>
-            <li>Manas is a software agency from Argentina with an international team</li>
-            <li>we built software for clients using lots of different technologies</li>
-            <li>particularly Ruby (on Rails)</li>
-            <li>While Ruby is great, some things are not so great: Type safety, performance, distribution, concurrency
-            <li><strong>A programming language is always a set of features and compromises</strong></li>
-            </li>
-          </ul>
-        </aside>
+            <aside class="notes">
+              <ul>
+                <li>Manas is a software agency from Argentina with an international team</li>
+                <li>we built software for clients using lots of different technologies</li>
+                <li>particularly Ruby (on Rails)</li>
+                <li>While Ruby is great, some things are not so great: Type safety, performance, distribution,
+                  concurrency
+                </li>
+                <li><strong>A programming language has a set of features and compromises</strong></li>
+              </ul>
+            </aside>
       </section>
 
       <section>
@@ -95,7 +103,7 @@
 
         <aside class="notes">
           <ul>
-            <li>type safety is challenging with compatibility and coherence of the ecosystem (modern approaches: RBS,
+            <li>type safety is challenging. with compatibility and coherence of the ecosystem (modern approaches: RBS,
               Sorbet).</li>
             <li>Ruby 3 and JIT increased performance significantly.<br>But dynamic nature puts it still
               on a different level of efficiency compared to native code.</li>
@@ -184,160 +192,6 @@ typeof(ary[0]) # => Int32
         </aside>
       </section>
 
-      <!--section data-auto-animate>
-        <h2>Static ↔ Dynamic</h2>
-
-        <pre data-id="code-animation2"><code class="language-crystal">ary = [1, 2, 3]
-
-ary.class # => Array(Int32)
-
-ary << 4
-typeof(ary[0]) # => Int32
-
-ary << "foo" # Error: expected argument #1 to 'Array(Int32)#<<'
-             # to be Int32, not String
-</code></pre>
-
-        <aside class="notes">
-          <p>there is not a single <code>Array</code> class but different instantiations with generic parameterization
-          </p>
-        </aside>
-      </section>
-
-      <section data-auto-animate>
-        <h2>Static ↔ Dynamic</h2>
-
-        <pre data-id="code-animation2"><code class="language-crystal">ary = [1, 2, 3] of Int32 | String
-
-ary.class # => Array(Int32 | String)
-
-ary << 4
-typeof(ary[0]) # => Int32 | String
-
-ary << "foo"
-
-</code></pre>
-
-        <aside class="notes">
-          <p>sometimes you need to put type information to help the compiler understand what you want</p>
-        </aside>
-      </section>
-
-      <section data-auto-animate data-auto-animate-restart>
-        <h2>Static ↔ Dynamic</h2>
-
-        <pre data-id="code-animation2"><code class="language-crystal">ary = [1, "foo"]
-
-first = ary[0]
-
-first - 5 # Error: undefined method '-' for String
-          #  (compile-time type is (Int32 | String))
-
-
-
-
-</code></pre>
-
-        <aside class="notes">
-          <p>Union types need to be taken care of</p>
-        </aside>
-      </section>
-
-      <section data-auto-animate>
-        <h2>Static ↔ Dynamic</h2>
-
-        <pre data-id="code-animation2"><code class="language-crystal">ary = [1, "foo"]
-
-first = ary[0]
-
-if first.is_a?(Int32)
-  first - 5 # => -4
-end
-
-
-
-</code></pre>
-
-        <aside class="notes">
-          flow typing
-        </aside>
-      </section>
-
-      <section data-auto-animate>
-        <h2>Static ↔ Dynamic</h2>
-
-        <pre data-id="code-animation2"><code class="language-crystal">ary = [1, "foo"]
-
-first = ary[0]
-
-if first.is_a?(Int32)
-  first - 5 # => -4
-else
-  first.upcase # => "FOO"
-end
-
-</code></pre>
-
-        <aside class="notes">
-        </aside>
-      </section-->
-
-
-      <section data-auto-animate>
-        <h2>Flow Typing</h2>
-
-        <pre data-id="code-animation3"><code class="language-crystal">message = STDIN.gets
-
-puts message.upcase # Error: undefined method 'upcase' for Nil
-                    # (compile-time type is (String | Nil))
-</code></pre>
-
-        <aside class="notes">
-        </aside>
-      </section>
-
-      <section data-auto-animate>
-        <h2>Flow typing</h2>
-
-        <pre data-id="code-animation3"><code class="language-crystal">message = STDIN.gets
-
-if message.is_a?(String)
-  # In this branch, `message` cannot be `Nil`
-  # We can safely call `String#upcase`
-  puts message.upcase
-end
-</code></pre>
-
-      <!--section data-auto-animate>
-        <h2>Metaprogramming: <code>macro</code></h2>
-        <p>Code that writes other code at compile time</p>
-        <div class="r-stack">
-          <pre class="fragment"><code class="language-crystal">macro getter(var)
-
-  # macro body
-
-end
-
-getter foo
-</code></pre>
-        </div>
-        <div class="fragment">
-          <p>Macro expansion:</p>
-          <pre><code class="language-crystal">
-  # macro body
-
-</code></pre>
-        </div>
-
-        <aside class="notes">
-          <ul>
-            <li><code>macro</code> has same structure as <code>def</code>, just different keyword</li>
-            <li>simplified example from stdlib</li>
-            <li>there's also hooks like <code>macro inherited</code></li>
-          </ul>
-        </aside>
-      </section-->
-
       <section>
         <section data-auto-animate>
           <h2>Metaprogramming: <code>macro</code></h2>
@@ -372,35 +226,12 @@ end
             </ul>
           </aside>
         </section>
-        <section>
-          <h2>Metaprogramming: <code>def</code></h2>
-          <pre><code class="language-crystal">class Foo
-  def ==(other)
-    {% for ivar in @type.instance_vars %}
-      return false unless @{{ivar.id}} == other.@{{ivar.id}}
-    {% end %}
-    true
-  end
-end
-</code></pre>
-          <div class="fragment">
-            <p>Macro expansion:</p>
-            <pre class="fragment"><code class="language-crystal"># macro expansion of method body with ivars @bar and @baz
-    return false unless @baz == other.@baz
-    return false unless @bar == other.@bar
-    true
-</code></pre>
-          </div>
-        </section>
-      </section>
-
-        <aside class="notes">
-        </aside>
       </section>
 
       <section>
-        <h2>Batteries included</h2>
-        <pre><code class="language-crystal"># A very basic HTTP server
+        <section>
+          <h2>Batteries included</h2>
+          <pre><code class="language-crystal"># A very basic HTTP server
 require "http/server"
 
 server = HTTP::Server.new do |context|
@@ -414,19 +245,19 @@ puts "Listening on http://#{address}"
 server.listen
 </code></pre>
 
-        <aside class="notes">
-          <ul>
-            <li><code>http/server</code> is part of Crystal's standard library (other JSON, XML, Crypto ...)</li>
-            <li>Crystal comes with a lot of useful tools out of the box</li>
-            <li>requests are handled in individual fibers, enabling concurrency (not that useful if you just print
-              hello Crystalm but imagine bigger)</li>
-            <li>the last call blocks until the process is terminated</li>
-          </ul>
-        </aside>
-      </section>
+          <aside class="notes">
+            <ul>
+              <li><code>http/server</code> is part of Crystal's standard library (other JSON, XML, Crypto ...)</li>
+              <li>Crystal comes with a lot of useful tools out of the box</li>
+              <li>requests are handled in individual fibers, enabling concurrency (not that useful if you just print
+                hello Crystalm but imagine bigger)</li>
+              <li>the last call blocks until the process is terminated</li>
+            </ul>
+          </aside>
+        </section>
 
-      <section>
-        <pre><code class="language-console" data-trim>
+        <section>
+          <pre><code class="language-console" data-trim>
 $ crystal build --release src/http-server.cr
 
 $ ./http-server &
@@ -441,25 +272,27 @@ Running 1m test @ http://localhost:8080/
 Requests/sec:  56126.81
 Transfer/sec:      5.57MB
 </code></pre>
-        <aside class="notes">
-          <ul>
-            <li>uses only a single thread</li>
-          </ul>
-      </section>
+          <aside class="notes">
+            <ul>
+              <li>uses only a single thread</li>
+            </ul>
+        </section>
       </section>
 
       <section>
         <h2>Concurrency</h2>
-        <ul>
-          <li>Lightweight threads, CSP-style</li>
-          <li><code>spawn foo()</code> launches a <code>Fiber</code></li>
-          <li>Deeply integrated into the runtime</li>
-          <li><code>socket.puts "ping"</code></li>
-          <li>Communication via <code>Channel</code></li>
-        </ul>
+          <pre><code class="language-crystal">done = Channel(Int32).new
 
+spawn do
+  result = do_some_work
+  done.send result
+end
+
+done.reveice
+</code></pre>
         <aside class="notes">
           <ul>
+            <li>lightweight threads</li>
             <li>communicating sequential processes (used also by Elixir and Go)</li>
             <li>all code is implicitly async (no colored functions, no callback hell)</li>
             <li>basically every time you need to wait on something (like reading from a socket), the scheduler
@@ -468,52 +301,6 @@ Transfer/sec:      5.57MB
         </aside>
       </section>
 
-      <!--section>
-        <section>
-          <h2>Compilation</h2>
-          <pre><code class="language-console" style="white-space: pre-wrap;">$ echo 'puts "Hello, Crystal!"' &gt; hello.cr
-
-$ crystal build hello.cr
-
-$ file hello
-hello: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=d7768fdb368d11e8e08c9bcaea7cc1a629914f04, for GNU/Linux 3.2.0, with debug_info, not stripped
-
-$ ./hello
-Hello, Crystal!
-</code></pre>
-
-          <aside class="notes">
-            <ul>
-              <li>Compile first, then run: Extra step, takes some time, but runtime efficiency pays off</li>
-              <li>distribution of binaries is easy when linked statically</li>
-              <li>cross compilation is also possible</li>
-              <li>LLVM is used for codegen. Optimizations are sometimes ridiculously good</li>
-            </ul>
-          </aside>
-        </section>
-      </section-->
-
-      <!-- <section>
-        <h2>Dependencies</h2>
-<pre><code class="language-crystal" data-trim># shard.yml
-name: my-first-crystal-app
-version: 1.0.0
-
-dependencies:
-  mysql:
-    github: crystal-lang/crystal-mysql
-    version: >=0.16.0
-</code></pre>
-<pre><code class="language-console" style="white-space: pre-wrap;">$ shards install
-$ shards update
-</code></pre>
-        <aside class="notes">
-          <p>Shards instead of gems</p>
-          <p>CLI similar to bundler</p>
-          <p>decentralized dependency resolution, no registry</p>
-          <p>dependencies point to repositories</p>
-        </aside>
-      </section> -->
       <section>
         <h2>Crystal Ball</h2>
 
@@ -534,33 +321,32 @@ $ shards update
         </aside>
       </section>
 
-
       <section>
         <ul>
-          <li><a href="https://crystal-lang.org/reference/tutorials/basics/index.html">Language introduction
-              tutorial</a></li>
-          <li><a href="https://exercism.org/tracks/Crystal">Excercism Track</a></li>
+          <li>Language introduction
+            tutorial:<br>
+            <a
+              href="https://crystal-lang.org/reference/">crystal-lang.org/reference/</a>
+          </li>
+          <li>Excercism Track: <br><a href="https://exercism.org/tracks/Crystal">exercism.org/tracks/Crystal</a></li>
         </ul>
       </section>
 
-      <!-- <section>
-        <h2>Conclusion</h2>
-        <ul>
-          <li>Crystal can be a useful asset in your toolbox</li>
-          <li>Enhance your Ruby project</li>
-          <li>Knowing Ruby makes you almost a Crystal developer</li>
-          <li>Knowing Crystal makes you a better Ruby developer</li>
-        </ul>
-      </section> -->
-
       <section>
-        <h2>Thank you</h2>
-
+        <p><a href="https://crystal-lang.org">crystal-lang.org</a></p>
         <div style="display: flex; gap: 5%; justify-content: center;">
-          <a href="https://84codes.com" style="width: 20%; aspect-ratio: 1;"><img src="assets/84codes.svg"
+          <a href="https://crystal-lang.org" style="width: 20%; aspect-ratio: 1;"><img src="assets/crystal.svg"
+              alt="Crystal" style="background: white; border-radius: 50%;"></a>
+        </div>
+
+        <p></p>
+        <h2>Thank you</h2>
+        <div style="display: flex; gap: 5%; justify-content: center;">
+
+          <a href="https://84codes.com" style="width: 12%; aspect-ratio: 1;"><img src="assets/84codes.svg"
               alt="84codes"></a>
 
-          <a href="https://manas.tech/" style="width: 20%; aspect-ratio: 1;"><img src="assets/manas.svg"
+          <a href="https://manas.tech/" style="width: 12%; aspect-ratio: 1;"><img src="assets/manas.svg"
               style="width: 100%;" alt="Manas"></a>
         </div>
       </section>
