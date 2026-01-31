@@ -46,17 +46,23 @@
       <section data-background-color="black">
         <p>Johannes Müller</p>
 
-        <p><a href="https://github.com/straight-shoota/">@straight-shoota</a></p>
-        <p><a href="https://fosstodon.org/@straightshoota">@straightshoota@fosstodon.org</a></p>
-        <p><a href="mailto:jmuller@manas.tech">jmuller@manas.tech</a></p>
+        <p><small>
+            <a href="https://github.com/straight-shoota/">@straight-shoota</a><br>
+            <a href="https://fosstodon.org/@straightshoota">@straightshoota@fosstodon.org</a><br>
+            <a href="mailto:jmuller@manas.tech">jmuller@manas.tech</a>
+          </small></p>
 
-        <hr>
-        <p><a href="https://straight-shoota.github.io/humans-computers">straight-shoota.github.io/humans-computers</a>
+        <p><br></p>
+        <p></p>
+        <img src="assets/qrcode-url.svg" alt="qr code"
+          style="float: right; background: white; width: 30%; aspect-ratio: 1;">
+        <p style="text-align: left;"><small>slides:<br><a
+              href="https://straight-shoota.github.io/humans-computers">straight-shoota.github.io/humans-computers</a></small>
         </p>
-        <p>
-          <a href="https://crystal-lang.org/install">crystal-lang.org/install</a> | <a
-            href="https://play.crystal-lang.org">play.crystal-lang.org</a>
-        </p>
+        <p style="text-align: left;"><small>follow along:<br>
+            <a href="https://crystal-lang.org/install">crystal-lang.org/install</a><br>
+            <a href="https://play.crystal-lang.org">play.crystal-lang.org</a>
+          </small></p>
 
         <aside class="notes">
           <ul>
@@ -78,21 +84,20 @@
 
       <section>
         <h2>Origin story</h2>
-        <p>Manas.Tech<< /p>
-            <a href="https://manas.tech/"><img src="assets/manas.svg" alt="Manas"
-                style="width: 33%; aspect-ratio: 1;"></a>
+        <a href="https://manas.tech/"><img src="assets/manas.svg" alt="Manas" style="width: 33%; aspect-ratio: 1;"></a>
+        <p>Manas.Tech</p>
 
-            <aside class="notes">
-              <ul>
-                <li>Manas is a software agency from Argentina with an international team</li>
-                <li>we built software for clients using lots of different technologies</li>
-                <li>particularly Ruby (on Rails)</li>
-                <li>While Ruby is great, some things are not so great: Type safety, performance, distribution,
-                  concurrency
-                </li>
-                <li><strong>A programming language has a set of features and compromises</strong></li>
-              </ul>
-            </aside>
+        <aside class="notes">
+          <ul>
+            <li>Manas is a software agency from Argentina with an international team</li>
+            <li>we built software for clients using lots of different technologies</li>
+            <li>particularly Ruby (on Rails)</li>
+            <li>While Ruby is great, some things are not so great: Type safety, performance, distribution,
+              concurrency
+            </li>
+            <li><strong>A programming language has a set of features and compromises</strong></li>
+          </ul>
+        </aside>
       </section>
 
       <section>
@@ -117,7 +122,7 @@
 
       <section>
         <h2>Crystal formula</h2>
-        <ul>
+        <ul style="list-style: none;">
           <li>Goodies from Ruby's lineage</li>
           <li>+ static typing with type inference</li>
           <li>+ highly efficient native code</li>
@@ -130,7 +135,6 @@
           <p>moves more to the static without loosing too much dynamic feel</p>
         </aside>
       </section>
-
       <section data-auto-animate>
         <h2>Static ↔ Dynamic</h2>
         <pre data-id="code-animation"><code class="language-crystal">def add(a, b)
@@ -164,6 +168,7 @@ add "foo", "bar" # => "foobar"
 add "foo", 2 # Error: instantiating 'add(String, Int32)
              # Error: expected argument #1 to 'String#+'
              # to be Char or String, not Int32
+
 </code></pre>
 
         <aside class="notes">
@@ -174,11 +179,35 @@ add "foo", 2 # Error: instantiating 'add(String, Int32)
           </ul>
         </aside>
       </section>
+      <section>
+        <section data-auto-animate>
+          <h2>Static ↔ Dynamic</h2>
+          <pre data-id="code-animation"><code class="language-crystal">def add(a : String, b : String) : String
+  a + b
+end
 
-      <section data-auto-animate data-auto-animate-restart>
-        <h2>Static ↔ Dynamic</h2>
 
-        <pre data-id="code-animation2"><code class="language-crystal">ary = [1, 2, 3]
+add "foo", "bar" # => "foobar"
+
+add "foo", 2 # Error: expected argument #2 to 'add' to be String,
+             # not Int32
+             # Overloads are:
+             # - add(a : String, b : String)
+</code></pre>
+
+          <aside class="notes">
+            <ul>
+              <li>In a truly dynamic typed language this would only error when the code executes</li>
+              <li>In Crystal you get the error at compile time</li>
+              <li>Piece of mind</li>
+            </ul>
+          </aside>
+        </section>
+
+        <section data-auto-animate data-auto-animate-restart>
+          <h2>Static ↔ Dynamic</h2>
+
+          <pre data-id="code-animation2"><code class="language-crystal">ary = [1, 2, 3]
 
 ary.class # => Array(Int32)
 
@@ -186,10 +215,38 @@ ary << 4
 typeof(ary[0]) # => Int32
 </code></pre>
 
+          <aside class="notes">
+            <p>there is not a single <code>Array</code> class but different instantiations with generic parameterization
+            </p>
+          </aside>
+        </section>
+      </section>
+
+
+      <section data-auto-animate>
+        <h2>Flow Typing</h2>
+
+        <pre data-id="code-animation3"><code class="language-crystal">message = gets
+
+puts message.upcase # Error: undefined method 'upcase' for Nil
+                    # (compile-time type is (String | Nil))
+</code></pre>
+
         <aside class="notes">
-          <p>there is not a single <code>Array</code> class but different instantiations with generic parameterization
-          </p>
         </aside>
+      </section>
+
+      <section data-auto-animate>
+        <h2>Flow typing</h2>
+
+        <pre data-id="code-animation3"><code class="language-crystal">message = gets
+
+if message.is_a?(String)
+  # In this branch, `message` cannot be `Nil`
+  # We can safely call `String#upcase`
+  puts message.upcase
+end
+</code></pre>
       </section>
 
       <section>
@@ -281,14 +338,14 @@ Transfer/sec:      5.57MB
 
       <section>
         <h2>Concurrency</h2>
-          <pre><code class="language-crystal">done = Channel(Int32).new
+        <pre><code class="language-crystal">done = Channel(Int32).new
 
 spawn do
   result = do_some_work
   done.send result
 end
 
-done.reveice
+done.receive
 </code></pre>
         <aside class="notes">
           <ul>
@@ -323,10 +380,8 @@ done.reveice
 
       <section>
         <ul>
-          <li>Language introduction
-            tutorial:<br>
-            <a
-              href="https://crystal-lang.org/reference/">crystal-lang.org/reference/</a>
+          <li>Language introduction:<br>
+            <a href="https://crystal-lang.org/reference/">crystal-lang.org/reference/</a>
           </li>
           <li>Excercism Track: <br><a href="https://exercism.org/tracks/Crystal">exercism.org/tracks/Crystal</a></li>
         </ul>
